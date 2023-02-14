@@ -10,7 +10,7 @@ var gaugeTemp = new LinearGauge({
   minValue: 0,
   startAngle: 90,
   ticksAngle: 180,
-  maxValue: 40,
+  maxValue: 4096,
   colorValueBoxRect: "#049faa",
   colorValueBoxRectEnd: "#049faa",
   colorValueBoxBackground: "#f1fbfc",
@@ -60,7 +60,7 @@ var gaugeTemp2 = new LinearGauge({
   minValue: 0,
   startAngle: 90,
   ticksAngle: 180,
-  maxValue: 40,
+  maxValue: 4096,
   colorValueBoxRect: "#049faa",
   colorValueBoxRectEnd: "#049faa",
   colorValueBoxBackground: "#f1fbfc",
@@ -109,7 +109,7 @@ var gaugeHum = new RadialGauge({
   height: 300,
   units: "Humidity (%)",
   minValue: 0,
-  maxValue: 100,
+  maxValue: 4096,
   colorValueBoxRect: "#049faa",
   colorValueBoxRectEnd: "#049faa",
   colorValueBoxBackground: "#f1fbfc",
@@ -154,7 +154,7 @@ var gaugeHum2 = new RadialGauge({
   height: 300,
   units: "Humidity (%)",
   minValue: 0,
-  maxValue: 100,
+  maxValue: 4096,
   colorValueBoxRect: "#049faa",
   colorValueBoxRectEnd: "#049faa",
   colorValueBoxBackground: "#f1fbfc",
@@ -203,8 +203,12 @@ function getReadings(){
       console.log(myObj);
       var temp = myObj.temperature;
       var hum = myObj.humidity;
+      var ain3 = myObj.ain3;
+      var ain4 = myObj.ain4;
       gaugeTemp.value = temp;
       gaugeHum.value = hum;
+      gaugeTemp2.value = ain3;
+      gaugeHum2.value = ain4;
     }
   }; 
   xhr.open("GET", "/readings", true);
@@ -234,5 +238,7 @@ if (!!window.EventSource) {
     console.log(myObj);
     gaugeTemp.value = myObj.temperature;
     gaugeHum.value = myObj.humidity;
+    gaugeTemp2.value = myObj.ain3;
+    gaugeHum2.value = myObj.ain4;
   }, false);
 }

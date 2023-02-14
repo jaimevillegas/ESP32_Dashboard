@@ -35,6 +35,8 @@ unsigned long timerDelay = 1000;  // INTENTAR REDUCIR ESTE VALOR AL MÁXIMO
 String getSensorReadings() {
   readings["temperature"] = String(analogRead(AIN1));
   readings["humidity"] = String(analogRead(AIN2));
+  readings["ain3"] = String(analogRead(AIN3));
+  readings["ain4"] = String(analogRead(AIN4));
   String jsonString = JSON.stringify(readings);
   return jsonString;
 }
