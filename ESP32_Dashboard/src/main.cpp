@@ -1,17 +1,17 @@
 #include <Arduino.h>
 #include <WiFi.h>
-#include <WiFiClient.h>
-#include <WiFiAP.h>
-
 #include <AsyncTCP.h>
 #include <ESPAsyncWebServer.h>
 #include "SPIFFS.h"
 #include <Arduino_JSON.h>
+// #include <WiFiClient.h>
+// #include <WiFiAP.h>
 
 const char* ssid = "DASHBOARD";
 const char* password = "123456789";
 
-WiFiServer server(80);
+// WiFiServer server(80);
+AsyncWebServer server(80);
 
 // Create an Event Source on /events
 AsyncEventSource events("/events");
@@ -21,7 +21,7 @@ JSONVar readings;
 
 // Timer variables
 unsigned long lastTime = 0;
-unsigned long timerDelay = 10000;  // INTENTAR REDUCIR ESTE VALOR AL MÁXIMO
+unsigned long timerDelay = 1000;  // INTENTAR REDUCIR ESTE VALOR AL MÁXIMO
 
 // I/O Configuration
 #define AIN1 35
@@ -35,7 +35,7 @@ unsigned long timerDelay = 10000;  // INTENTAR REDUCIR ESTE VALOR AL MÁXIMO
 String getSensorReadings() {
   readings["temperature"] = String(analogRead(AIN1));
   readings["humidity"] = String(analogRead(AIN2));
-  String.jsonString = JSON.stringify(readings);
+  String jsonString = JSON.stringify(readings);
   return jsonString;
 }
 
@@ -64,7 +64,7 @@ void setup() {
 
   // Connect to WiFi
   Serial.println();
-  Serial.print('Configuring Access Point: ');
+  Serial.print("Configuring Access Point: ");
   Serial.println(ssid);
 
   WiFi.softAP(ssid, password);
@@ -81,17 +81,45 @@ void setup() {
     request->send(SPIFFS, "/index.html", "text/html");
   });
 
-  server.serveStatic('/', SPIFFS, '/');
+  server.serveStatic("/", SPIFFS, "/");
+
+  // Request for the latest sensor readings
+  server.on("/readings", HTTP_GET, [](AsyncWebServerRequest *request){
+    String json = getSensorReadings();
+    request->send(200, "application/json", json);
+    json = String();
+  });
+
+  events.onConnect([](AsyncEventSourceClient *client) {
+    if(client->lastId()) {
+      Serial.printf("Client reconnected! Last message ID that it got is: %u\n", client->lastId());
+    }
+    // Send event with message "hello!', id current millis
+    // and set reconnect delay to 1 second
+    client->send("hello!", NULL, millis(), 1000); // AQUÍ TAMBIÉN TRATAR DE REDUCIR TIEMPO
+  }) ;
+
+  server.addHandler(&events);
+
+  // Start server
+  server.begin();
 }
 
 void loop() {
   // Check if a client has connected...
-  WiFiClient client = server.available();
-  if (!client) {
-    return;
-  }
+  // WiFiClient client = server.available();
+  // if (!client) {
+  //   return;
+  // }
 
-  Serial.print("New Client! --> ");
-  Serial.println(client.remoteIP());
+  // Serial.print("New Client! --> ");
+  // Serial.println(client.remoteIP());
+
+  if ((millis() - lastTime) > timerDelay) {
+    // Send Events to the client with the Sensor Readings Every 10 seconds
+    events.send("ping", NULL, millis());
+    events.send(getSensorReadings().c_str(),"new_readings", millis());
+    lastTime = millis();
+  }
 
 }

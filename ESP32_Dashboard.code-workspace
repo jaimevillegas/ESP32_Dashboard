@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "ESP32_Dashboard",
+			"path": "ESP32_Dashboard"
+		}
+	],
+	"settings": {}
+}
