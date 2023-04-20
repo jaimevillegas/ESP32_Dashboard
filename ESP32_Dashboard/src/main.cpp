@@ -92,6 +92,14 @@ void setup() {
     json = String();
   });
 
+  server.on("/location", HTTP_GET, [](AsyncWebServerRequest *request) {
+    if (request->hasParam("latitude")) {
+      Serial.println(request->getParam("latitude")->value());
+    }
+
+  });
+
+
   events.onConnect([](AsyncEventSourceClient *client) {
     if(client->lastId()) {
       Serial.printf("Client reconnected! Last message ID that it got is: %u\n", client->lastId());
