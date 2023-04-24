@@ -8,22 +8,22 @@
   <script src="gauge.min.js"></script>
   <link rel="stylesheet" href="index.css">
   <link rel='stylesheet' href='7sd.css' />
+  <link rel="stylesheet" href="odometer-theme-car.css" />
+<script src="odometer.min.js"></script>
 </head>
 
 <body>
   <nav class="navigation-top">
-    <p>DASHBOARD</p>
-    <ul>
-      <li><a href="#">LINK 1</a></li>
-      <li><a href="#">LINK 2</a></li>
-      <li><a href="#">LINK 3</a></li>
-    </ul>
+    <h1>DASHBOARD</h1>
   </nav>
 
   <div>
     <div class='container-gauges'>
       <canvas id='gauge-temperature'></canvas>
-      <canvas id='gauge-humidity'></canvas>
+      <div class="speed-container">
+        <canvas id='gauge-humidity'></canvas>
+        <div id="odometer" class="odometer">123</div>
+      </div>
       <canvas id='gauge-humidity2'></canvas>
       <canvas id='gauge-temperature2'></canvas>
     </div>

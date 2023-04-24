@@ -4,56 +4,29 @@ body {
   background-color: #312A2A;
 }
 .navigation-top {
-  /* position: absolute; */
-  /* top: 0; */
-  width: 100%;
-  margin: 0;
-  padding: 0;
   background-color: #312A2A;
   color: white;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-bottom: 30px;
 }
 
-.navigation-top p {
-  margin-left: 20px;
-
-}
-
-.navigation-top ul {
-  list-style-type: none;
-  display: flex;
-  gap: 20px;
-  padding: 10px;
-  margin-right: 20px;
-}
-
-.navigation-top a {
-  text-decoration: none;
-  color: white;
-}
-
 .container-gauges {
   margin: 0 auto;
-  /* width: 95%; */
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   overflow-x: auto;
-
 }
 
 .container-gauges div {
-  /* max-width: max-content; */
-  width: 20%;
+  width: 15%;
 }
 
 .container-gauges canvas {
   width: max-content;
 }
-
 
 .seven-segments {
   margin: 0 auto;
@@ -62,4 +35,29 @@ body {
   width: fit-content;
   background-color: RGB610,;
   border-radius: 8px;
+}
+
+.speed-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.speed-container .odometer {
+  background-color: transparent;
+  width: min-content;
+}
+
+.speed-container .odometer div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 30px;
+  color: white;
+  width: 100%;
+}
+
+.odometer {
+  font-size: 40px;
 }

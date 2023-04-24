@@ -6,6 +6,12 @@ const velocity = document.getElementById("velocity");
 const getLocationButton = document.getElementById("get-location-button");
 const locationInfo = document.getElementById("location-info");
 
+odometer = document.getElementById("odometer");
+odometer.innerHTML = 990;
+setTimeout(function () {
+  odometer.innerHTML = 1000;
+}, 1000);
+
 // Create Temperature Gauge
 var gaugeTemp = new LinearGauge({
   renderTo: 'gauge-temperature',
@@ -136,8 +142,8 @@ var gaugeTemp2 = new LinearGauge({
 // Create Humidity Gauge
 var gaugeHum = new RadialGauge({
   renderTo: 'gauge-humidity',
-  width: 270,
-  height: 270,
+  width: 220,
+  height: 220,
   units: "km/h",
   minValue: 0,
   maxValue: 240,
@@ -203,8 +209,8 @@ var gaugeHum = new RadialGauge({
 var gaugeHum2 = new RadialGauge({
 
   renderTo: 'gauge-humidity2',
-  width: 270,
-  height: 270,
+  width: 220,
+  height: 220,
   units: "X1000 RPM",
   minValue: 0,
   maxValue: 8,
