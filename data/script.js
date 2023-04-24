@@ -175,45 +175,63 @@ var gaugeHum = new RadialGauge({
 
 
 var gaugeHum2 = new RadialGauge({
+
   renderTo: 'gauge-humidity2',
   width: 270,
   height: 270,
-  units: "Humidity (%)",
+  units: "X1000 RPM",
   minValue: 0,
-  maxValue: 4096,
-  colorValueBoxRect: "#049faa",
+  maxValue: 8,
+
+  colorValueBoxRect: "transparent",
+  colorNeedle: "red",
+  colorNeedleEnd: "red",
   colorValueBoxRectEnd: "#049faa",
-  colorValueBoxBackground: "#f1fbfc",
+  colorNeedleCircleOuter: "#007F80",
+  colorNumbers: "white",
+  // colorValueBoxBackground: "transparent",
+
+  valueBox: false,
   valueInt: 2,
   majorTicks: [
     "0",
-    "20",
-    "40",
-    "60",
-    "80",
-    "100"
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8"
 
   ],
-  minorTicks: 4,
+  minorTicks: 10,
   strokeTicks: true,
   highlights: [
     {
-      "from": 80,
-      "to": 100,
+      "from": 0,
+      "to": 6.5,
       "color": "#03C0C1"
+    },
+    {
+      "from": 6.5,
+      "to": 8,
+      "color": "red"
     }
   ],
-  colorPlate: "#fff",
-  borderShadowWidth: 0,
-  borders: false,
+  colorPlate: "transparent",
+  borderShadowWidth: 8,
+  borders: true,
+
+  fontNumbersSize: 20,
+  fontNumbersStyle: "Bold",
+
   needleType: "line",
-  colorNeedle: "#007F80",
-  colorNeedleEnd: "#007F80",
-  needleWidth: 2,
-  needleCircleSize: 3,
-  colorNeedleCircleOuter: "#007F80",
+  needleWidth: 4,
+  needleCircleSize: 22,
   needleCircleOuter: true,
   needleCircleInner: false,
+
   animationDuration: 1500,
   animationRule: "linear"
 }).draw();
