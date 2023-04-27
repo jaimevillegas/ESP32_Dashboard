@@ -6,11 +6,11 @@ const velocity = document.getElementById("velocity");
 const getLocationButton = document.getElementById("get-location-button");
 const locationInfo = document.getElementById("location-info");
 
-odometer = document.getElementById("odometer");
-odometer.innerHTML = 990;
-setTimeout(function () {
-  odometer.innerHTML = 1000;
-}, 1000);
+// odometer = document.getElementById("odometer");
+// odometer.innerHTML = 990;
+// setTimeout(function () {
+//   odometer.innerHTML = 1000;
+// }, 1000);
 
 // Create Temperature Gauge
 var gaugeTemp = new LinearGauge({
@@ -95,7 +95,7 @@ var gaugeTemp2 = new LinearGauge({
   valueDec: 2,
   valueInt: 2,
   majorTicks: [
-    "0",
+    "°C",
     "20",
     "40",
     "60",
@@ -254,6 +254,79 @@ var gaugeHum2 = new RadialGauge({
   colorPlate: "transparent",
   borderShadowWidth: 8,
   borders: true,
+
+  fontNumbersSize: 20,
+  fontNumbersStyle: "Bold",
+
+  needleType: "line",
+  needleWidth: 4,
+  needleCircleSize: 22,
+  needleCircleOuter: true,
+  needleCircleInner: false,
+
+  animationDuration: 1500,
+  animationRule: "linear"
+}).draw();
+
+var gaugeVolts = new RadialGauge({
+
+  renderTo: 'gauge-volts',
+  width: 120,
+  height: 120,
+  units: "Volts",
+  minValue: 0,
+  maxValue: 20,
+
+  colorValueBoxRect: "transparent",
+  colorNeedle: "red",
+  colorNeedleEnd: "red",
+  colorValueBoxRectEnd: "#049faa",
+  colorNeedleCircleOuter: "#007F80",
+  colorNumbers: "white",
+  // colorValueBoxBackground: "transparent",
+
+  valueBox: true,
+  valueInt: 2,
+  valueDec: 1,
+  majorTicks: [
+    "0",
+    "6",
+    "8",
+    "10",
+    "12",
+    "16",
+    "20"
+
+  ],
+  minorTicks: 2,
+  strokeTicks: false,
+  highlights: [
+    {
+      "from": 0,
+      "to": 10,
+      "color": "#F5E510"
+    },
+    {
+      "from": 10,
+      "to": 14,
+      "color": "green"
+    },
+    {
+      "from": 14,
+      "to": 20,
+      "color": "red"
+    }
+  ],
+  colorPlate: "transparent",
+  borders: true,
+  borderOuterWitdh: 0,
+  borderShadowWidth: 0,
+  borderMiddleWidth: 0,
+  borderInnerWidth: 0,
+  colorBorderOuter: "#3B3B39",
+  colorBorderOuterEnd: "#3B3B39",
+
+
 
   fontNumbersSize: 20,
   fontNumbersStyle: "Bold",
