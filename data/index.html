@@ -13,61 +13,16 @@
 </head>
 
 <body>
-  <nav class="navigation-top">
-    <h1>DASHBOARD</h1>
-  </nav>
-
-  <div>
-    <div class='container-gauges'>
-      <canvas id='gauge-temperature'></canvas>
-      <div class="speed-container">
-        <canvas id='gauge-humidity'></canvas>
-        <div id="odometer" class="odometer">123</div>
-      </div>
-      <canvas id='gauge-humidity2'></canvas>
-      <canvas id='gauge-temperature2'></canvas>
+  <div class='container-gauges'>
+    <canvas id='gauge-temperature'></canvas>
+    <div class="speed-container">
+      <canvas id='gauge-humidity'></canvas>
+      <div id="odometer" class="odometer">123</div>
     </div>
-    <div class='row'>
-      <div class='seven-segments'>
-        <div class='s7s '>
-          <input value='1' />
-          <seg></seg>
-          <seg></seg>
-          <seg></seg>
-          <seg></seg>
-          <seg></seg>
-          <seg></seg>
-          <seg></seg>
-        </div>
-        <div class='s7s'>
-          <input value='2' />
-          <seg></seg>
-          <seg></seg>
-          <seg></seg>
-          <seg></seg>
-          <seg></seg>
-          <seg></seg>
-          <seg></seg>
-        </div>
-        <div class='s7s'>
-          <input value='3' />
-          <seg></seg>
-          <seg></seg>
-          <seg></seg>
-          <seg></seg>
-          <seg></seg>
-          <seg></seg>
-          <seg></seg>
-        </div>
-
-      </div>
-      <p id="gps">Hello</p>
-      <p id="velocity">OLA</p>
-      <button id="get-location-button">GET LOCATION</button>
-      <p id="location-info"></p>
-    </div>
-
+    <canvas id='gauge-humidity2'></canvas>
+    <canvas id='gauge-temperature2'></canvas>
   </div>
+
   <script src='script.js'></script>
 </body>
 
