@@ -75,10 +75,9 @@ var gaugeTemp = new LinearGauge({
   fontNumbersStyle: "Bold",
 }).draw();
 
-
-var gaugeTemp2 = new LinearGauge({
-  renderTo: 'gauge-temperature2',
-  width: 100,
+var gaugeGasolina = new LinearGauge({
+  renderTo: 'gauge-gasolina',
+  width: 80,
   height: 300,
   units: "Temp C",
   fontUnits: 24,
@@ -95,15 +94,132 @@ var gaugeTemp2 = new LinearGauge({
   valueDec: 2,
   valueInt: 2,
   majorTicks: [
-    "°C",
-    "20",
-    "40",
-    "60",
-    "80",
+    "0",
+    "50",
     "100",
-    "120",
-    "140",
-    "160"
+    "150",
+    "200",
+    "250"
+  ],
+  minorTicks: 2,
+  strokeTicks: false,
+  highlights: [
+    {
+      "from": 0,
+      "to": 100,
+      "color": "#03c0c1"
+    },
+    {
+      "from": 100,
+      "to": 160,
+      "color": "red"
+    }
+  ],
+  colorPlate: "transparent",
+  colorBarProgress: "white",
+  colorBarProgressEnd: "blue",
+  borderShadowWidth: 0,
+  borders: false,
+  needleType: "arrow",
+  needleWidth: 4,
+  needleCircleSize: 6,
+  needleCircleOuter: false,
+  needleCircleInner: true,
+  colorNeedleCircleInner: "red",
+  animationDuration: 1000,
+  animationRule: "bounce",
+  barWidth: 15,
+  colorNumbers: "white",
+  fontNumbersSize: 25,
+  fontNumbersStyle: "Bold",
+}).draw();
+
+var gaugeAire1 = new LinearGauge({
+  renderTo: 'gauge-aire1',
+  width: 80,
+  height: 300,
+  units: "Temp C",
+  fontUnits: 24,
+  colorUnits: "white",
+  minValue: 0,
+  valueBox: false,
+  startAngle: 90,
+  ticksAngle: 180,
+  // barShadow: 9,
+  maxValue: 160,
+  colorValueBoxRect: "#049faa",
+  colorValueBoxRectEnd: "#049faa",
+  colorValueBoxBackground: "#f1fbfc",
+  valueDec: 2,
+  valueInt: 2,
+  majorTicks: [
+    "0",
+    "50",
+    "100",
+    "150",
+    "200",
+    "250"
+  ],
+  minorTicks: 2,
+  strokeTicks: false,
+  highlights: [
+    {
+      "from": 0,
+      "to": 100,
+      "color": "#03c0c1"
+    },
+    {
+      "from": 100,
+      "to": 160,
+      "color": "red"
+    }
+  ],
+  colorPlate: "transparent",
+  colorBarProgress: "white",
+  colorBarProgressEnd: "blue",
+  borderShadowWidth: 0,
+  borders: false,
+  needleType: "arrow",
+  needleWidth: 4,
+  needleCircleSize: 6,
+  needleCircleOuter: false,
+  needleCircleInner: true,
+  colorNeedleCircleInner: "red",
+  animationDuration: 1000,
+  animationRule: "bounce",
+  barWidth: 15,
+  colorNumbers: "white",
+  fontNumbersSize: 25,
+  fontNumbersStyle: "Bold",
+}).draw();
+
+
+
+var gaugeTemp2 = new LinearGauge({
+  renderTo: 'gauge-temperature2',
+  width: 80,
+  height: 300,
+  units: "Temp C",
+  fontUnits: 24,
+  colorUnits: "white",
+  minValue: 0,
+  valueBox: false,
+  startAngle: 90,
+  ticksAngle: 180,
+  // barShadow: 9,
+  maxValue: 160,
+  colorValueBoxRect: "#049faa",
+  colorValueBoxRectEnd: "#049faa",
+  colorValueBoxBackground: "#f1fbfc",
+  valueDec: 2,
+  valueInt: 2,
+  majorTicks: [
+    "0",
+    "50",
+    "100",
+    "150",
+    "200",
+    "250"
   ],
   minorTicks: 2,
   strokeTicks: false,
@@ -166,13 +282,7 @@ var gaugeHum = new RadialGauge({
     "80",
     "100",
     "120",
-    "140",
-    "160",
-    "180",
-    "200",
-    "220",
-    "240"
-
+    "140"
   ],
   minorTicks: 10,
   strokeTicks: true,
@@ -189,8 +299,13 @@ var gaugeHum = new RadialGauge({
     }
   ],
   colorPlate: "transparent",
-  borderShadowWidth: 8,
   borders: true,
+  borderOuterWitdh: 0,
+  borderShadowWidth: 0,
+  borderMiddleWidth: 0,
+  borderInnerWidth: 0,
+  colorBorderOuter: "#3B3B39",
+  colorBorderOuterEnd: "#3B3B39",
 
   fontNumbersSize: 20,
   fontNumbersStyle: "Bold",
@@ -252,8 +367,13 @@ var gaugeHum2 = new RadialGauge({
     }
   ],
   colorPlate: "transparent",
-  borderShadowWidth: 8,
   borders: true,
+  borderOuterWitdh: 0,
+  borderShadowWidth: 0,
+  borderMiddleWidth: 0,
+  borderInnerWidth: 0,
+  colorBorderOuter: "#3B3B39",
+  colorBorderOuterEnd: "#3B3B39",
 
   fontNumbersSize: 20,
   fontNumbersStyle: "Bold",
@@ -271,8 +391,8 @@ var gaugeHum2 = new RadialGauge({
 var gaugeVolts = new RadialGauge({
 
   renderTo: 'gauge-volts',
-  width: 120,
-  height: 120,
+  width: 150,
+  height: 150,
   units: "Volts",
   minValue: 0,
   maxValue: 20,
@@ -283,9 +403,8 @@ var gaugeVolts = new RadialGauge({
   colorValueBoxRectEnd: "#049faa",
   colorNeedleCircleOuter: "#007F80",
   colorNumbers: "white",
-  // colorValueBoxBackground: "transparent",
 
-  valueBox: true,
+  valueBox: false,
   valueInt: 2,
   valueDec: 1,
   majorTicks: [
@@ -344,8 +463,8 @@ var gaugeVolts = new RadialGauge({
 var gaugeAceite = new RadialGauge({
 
   renderTo: 'gauge-aceite',
-  width: 120,
-  height: 120,
+  width: 150,
+  height: 150,
   units: "PSI",
   minValue: 0,
   maxValue: 150,
@@ -358,7 +477,7 @@ var gaugeAceite = new RadialGauge({
   colorNumbers: "white",
   // colorValueBoxBackground: "transparent",
 
-  valueBox: true,
+  valueBox: false,
   valueInt: 2,
   valueDec: 1,
   majorTicks: [
