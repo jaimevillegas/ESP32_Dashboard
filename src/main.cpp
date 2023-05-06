@@ -7,8 +7,8 @@
 // #include <WiFiClient.h>
 // #include <WiFiAP.h>
 
-const char* ssid = "DASHBOARD";
-const char* password = "123456789";
+const char *ssid = "DASHBOARD";
+const char *password = "123456789";
 
 // WiFiServer server(80);
 AsyncWebServer server(80);
@@ -21,7 +21,7 @@ JSONVar readings;
 
 // Timer variables
 unsigned long lastTime = 0;
-unsigned long timerDelay = 1000;  // INTENTAR REDUCIR ESTE VALOR AL MÁXIMO
+unsigned long timerDelay = 1000; // INTENTAR REDUCIR ESTE VALOR AL MÁXIMO
 
 // I/O Configuration
 #define AIN1 35
@@ -30,29 +30,36 @@ unsigned long timerDelay = 1000;  // INTENTAR REDUCIR ESTE VALOR AL MÁXIMO
 #define AIN4 33
 #define AIN5 36
 #define AIN6 39
+// #define AIN7 39
+// #define AIN8 39
 
 // Get Sensor Readings and return JSON object
-String getSensorReadings() {
+String getSensorReadings()
+{
   readings["temperature"] = String(analogRead(AIN1));
-  readings["humidity"] = String(analogRead(AIN2));
-  readings["ain3"] = String(analogRead(AIN3));
-  readings["ain4"] = String(analogRead(AIN4));
+  readings["gasolina"] = String(analogRead(AIN2));
+  readings["aire1"] = String(analogRead(AIN3));
+  readings["aire2"] = String(analogRead(AIN4));
+  readings["velocity"] = String(analogRead(AIN5));
+  readings["rpm"] = String(analogRead(AIN6));
+  readings["volts"] = String(analogRead(AIN6));
+  readings["aceite"] = String(analogRead(AIN6));
   String jsonString = JSON.stringify(readings);
   return jsonString;
 }
 
 // Initialize SPIFFS
-void initSPIFFS() {
-  if (!SPIFFS.begin()) {
+void initSPIFFS()
+{
+  if (!SPIFFS.begin())
+  {
     Serial.println("An error has occurred while mounting SPIFFS");
   }
   Serial.println("SPIFFS mounted successfully");
 }
 
-
-
-
-void setup() {
+void setup()
+{
   Serial.begin(115200);
   initSPIFFS();
 
@@ -79,35 +86,28 @@ void setup() {
   server.begin();
   Serial.println("Webserver Started!");
 
-  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
-    request->send(SPIFFS, "/index.html", "text/html");
-  });
+  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
+            { request->send(SPIFFS, "/index.html", "text/html"); });
 
   server.serveStatic("/", SPIFFS, "/");
 
   // Request for the latest sensor readings
-  server.on("/readings", HTTP_GET, [](AsyncWebServerRequest *request){
+  server.on("/readings", HTTP_GET, [](AsyncWebServerRequest *request)
+            {
     String json = getSensorReadings();
     request->send(200, "application/json", json);
-    json = String();
-  });
+    json = String(); });
 
-  server.on("/location", HTTP_GET, [](AsyncWebServerRequest *request) {
-    if (request->hasParam("latitude")) {
-      Serial.println(request->getParam("latitude")->value());
-    }
-
-  });
-
-
-  events.onConnect([](AsyncEventSourceClient *client) {
-    if(client->lastId()) {
-      Serial.printf("Client reconnected! Last message ID that it got is: %u\n", client->lastId());
-    }
-    // Send event with message "hello!', id current millis
-    // and set reconnect delay to 1 second
-    client->send("hello!", NULL, millis(), 1000); // AQUÍ TAMBIÉN TRATAR DE REDUCIR TIEMPO
-  }) ;
+  events.onConnect([](AsyncEventSourceClient *client)
+                   {
+                     if (client->lastId())
+                     {
+                       Serial.printf("Client reconnected! Last message ID that it got is: %u\n", client->lastId());
+                     }
+                     // Send event with message "hello!', id current millis
+                     // and set reconnect delay to 1 second
+                     client->send("hello!", NULL, millis(), 1000); // AQUÍ TAMBIÉN TRATAR DE REDUCIR TIEMPO
+                   });
 
   server.addHandler(&events);
 
@@ -115,21 +115,24 @@ void setup() {
   server.begin();
 }
 
-void loop() {
-  // Check if a client has connected...
-  // WiFiClient client = server.available();
-  // if (!client) {
+void loop()
+{
+  // Check if a client has connected... WiFiClient client = server.available();
+  // if (!client)
+  // {
   //   return;
   // }
 
   // Serial.print("New Client! --> ");
   // Serial.println(client.remoteIP());
+  Serial.println("EN LOOP!!!");
 
-  if ((millis() - lastTime) > timerDelay) {
+  if ((millis() - lastTime) > timerDelay)
+  {
     // Send Events to the client with the Sensor Readings Every 10 seconds
+    Serial.println(getSensorReadings());
     events.send("ping", NULL, millis());
-    events.send(getSensorReadings().c_str(),"new_readings", millis());
+    events.send(getSensorReadings().c_str(), "new_readings", millis());
     lastTime = millis();
   }
-
 }

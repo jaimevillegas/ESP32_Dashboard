@@ -195,8 +195,8 @@ var gaugeAire1 = new LinearGauge({
 
 
 
-var gaugeTemp2 = new LinearGauge({
-  renderTo: 'gauge-temperature2',
+var gaugeAire2 = new LinearGauge({
+  renderTo: 'gauge-aire2',
   width: 80,
   height: 300,
   units: "Temp C",
@@ -256,8 +256,8 @@ var gaugeTemp2 = new LinearGauge({
 
 
 // Create Humidity Gauge
-var gaugeHum = new RadialGauge({
-  renderTo: 'gauge-humidity',
+var gaugeVelocity = new RadialGauge({
+  renderTo: 'gauge-velocity',
   width: 220,
   height: 220,
   units: "km/h",
@@ -321,9 +321,9 @@ var gaugeHum = new RadialGauge({
 }).draw();
 
 
-var gaugeHum2 = new RadialGauge({
+var gaugeRPM = new RadialGauge({
 
-  renderTo: 'gauge-humidity2',
+  renderTo: 'gauge-rpm',
   width: 220,
   height: 220,
   units: "X1000 RPM",
@@ -538,13 +538,21 @@ function getReadings() {
       var myObj = JSON.parse(this.responseText);
       console.log(myObj);
       var temp = myObj.temperature;
-      var hum = myObj.humidity;
-      var ain3 = myObj.ain3;
-      var ain4 = myObj.ain4;
+      var gas = myObj.gasolina;
+      var aire1 = myObj.aire1;
+      var aire2 = myObj.aire2;
+      var velocity = myObj.velocity;
+      var rpm = myObj.rpm;
+      var volts = myObj.volts;
+      var aceite = myObj.aceite;
       gaugeTemp.value = temp;
-      gaugeHum.value = hum;
-      gaugeTemp2.value = ain3;
-      gaugeHum2.value = ain4;
+      gaugeGasolina.value = gas;
+      gaugeAire1.value = aire1;
+      gaugeAire2.value = aire2;
+      gaugeVelocity.value = velocity;
+      gaugeRPM.value = rpm;
+      gaugeVolts.value = volts;
+      gaugeAceite.value = aceite;
     }
   };
   xhr.open("GET", "/readings", true);
@@ -573,9 +581,13 @@ if (!!window.EventSource) {
     var myObj = JSON.parse(e.data);
     console.log(myObj);
     gaugeTemp.value = myObj.temperature;
-    gaugeHum.value = myObj.humidity;
-    gaugeTemp2.value = myObj.ain3;
-    gaugeHum2.value = myObj.ain4;
+    gaugeGasolina.value = myObj.gasolina;
+    gaugeAire1.value = myObj.aire1;
+    gaugeAire2.value = myObj.aire2;
+    gaugeVelocity.value = myObj.velocity;
+    gaugeRPM.value = myObj.rpm;
+    gaugeVolts.value = myObj.volts;
+    gaugeAceite.value = myObj.aceite;
   }, false);
 }
 
